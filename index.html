@@ -12,8 +12,10 @@
 
 		<link href="css/bootstrap.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
-		
+
+        <script src="https://genius.codes"></script>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     </head>
     <body>
 	<style type="text/css">
@@ -30,26 +32,36 @@
         <p>This web application will finally allow you to<br>
         find that song that has been stuck in your head all<br>
         day and all you can remember is a few words from it</p>
-		
-		
+
+
 			<div class="form-group">
 			<h2>Lyrics:<br></h2>
-            <input class="form-control" type="text" name="Song Lyrics" style="height:300px"><br>
-			<button class="btn btn-success">Submit</button>
+            <input class="form-control" type="text" name="Song Lyrics" id="lyrics" style="height:300px"><br>
+			<button class="btn btn-success" id=submitBtn">Submit</button>
 			<button class="btn btn-success" id="myBtn">Select Genre</button>
-        	
+
         <!--<h2>Genre</h2>-->
-            
+
 			 <!-- Trigger/Open The Modal -->
 
+                <div id="myModal2" class="modal">
+                    <div class="modal-content">
+                        <ol id="list">
+
+                        </ol>
+
+                    </div>
+                </div>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+                <div id="myModal" class="modal">
+
+
 
   <!-- Modal content -->
-  <div class="modal-content">
+    <div class="modal-content">
     <span class="close">x</span>
-	
+
     <input type="radio" name="Genre" value="Rock"> Rock<br>
     <input type="radio" name="Genre" value="Pop"> Pop<br>
     <input type="radio" name="Genre" value="Rap"> Rap<br>
@@ -64,45 +76,71 @@
     <input type="radio" name="Genre" value="Reggae"> Reggae<br>
     <input type="radio" name="Genre" value="Pop"> Pop<br>
     <input type="radio" name="Genre" value="Rap"> Rap<br>
+    <input type="radio" name="Genre" value="Grime"> Grime<br>
     <input type="radio" name="Genre" value="Unknown"> Unknown<br>
-	
+
 	<button class="Close" id="close">Close The Model</button>
   </div>
 
-</div>
+
 	<script>
-	// Get the modal
-		var modal = document.getElementById('myModal');
+        //show modal
+            $("#myBtn").click(function(){
+                $("#myModal").show();
+                 })
 
-	// Get the button that opens the modal
-		var btn = document.getElementById("myBtn");
+        //hide modal
+            $("#close").click(function()
+            {
+                                $("#myModal").hide();
+//                                var url="https://api.genius.com/oauth/authorize";
+//                                    url+="?client_id=xdTzu1sO5ubbcCSmsXV4d2w2U38QN1RTcaV_xh9l0g_BWM5PD721glLwkd666Vql";
+//                                    url+="&redirect_uri=http://wordy1.azurewebsites.net/";
+//                                    url+="&scope=me";
+//                                    url+="&state=GOT_AUTHORISED";
+//                                    url+="&response_type=code";
+//
+//                                window.location.href=url;
+                               // var lyric = document.getElementById("lyrics").getAttribute();
+                                var url="https://api.genius.com/search?q=" + encodeURIComponent($('.form-control')[0].value);
+//                                var data={"headers":{"Authorization":"Bearer "+"G4QTp9T9ONwpnV5DJBLtUpId8XNbJUMdWc2jvFCR-qYMRdYeo_XXK7jTEnwO8i8n"}
+//                                        };
+                                $.ajax({
+                                        "url": url,
+                                        "headers": {"Authorization":"Bearer "+"G4QTp9T9ONwpnV5DJBLtUpId8XNbJUMdWc2jvFCR-qYMRdYeo_XXK7jTEnwO8i8n"},
+                                        "success": function (reply) {
+                                            var hits = reply.response.hits;
+                                            console.log(hits);
+                                           var i;
+                                            for(i = 0; i < hits.length; i++){
+                                                console.log(hits[i].result.full_title);
+                                            }
 
-		var closeBtn = document.getElementById("close")
-	// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
 
-		// When the user clicks on the button, open the modal
-			btn.onclick = function() {
-			modal.style.display = "block";
-			}
+                                            $("#myModal2").show();
+                                            for(i = 0; i < hits.length; i++){
+                                                $("#list").append("<li>"+hits[i].result.full_title+"</li>");
 
-		// When the user clicks on <span> (x), close the modal
-			closeBtn.onclick = function() {
-			modal.style.display = "none";
-			}
+                                            }
 
-		// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-			if (event.target == modal) {
-			modal.style.display = "none";
-			}
-		}
+                                        }
+                                        });
+
+
+
+
+
+
+
+
+                                } //end of click handler
+            )
+
 		</script>
-			
-        
+
         </div>
 		</div>
-		
+
         <script src="https://code.jquery.com/jquery-{{JQUERY_VERSION}}.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
