@@ -33,7 +33,6 @@
         find that song that has been stuck in your head all<br>
         day and all you can remember is a few words from it</p>
 
-
 			<div class="form-group">
 			<h2>Lyrics:<br></h2>
             <input class="form-control" type="text" name="Song Lyrics" id="lyrics" style="height:300px"><br>
@@ -44,20 +43,16 @@
 
 			 <!-- Trigger/Open The Modal -->
 
-                <div id="myModal2" class="modal">
+                <div id="resultsModal" class="modal">
                     <div class="modal-content">
                         <ol id="list">
-
                         </ol>
-
+                        <button class="btn btn-success" id="closeResult">Close result model</button>
                     </div>
                 </div>
 
 <!-- The Modal -->
                 <div id="myModal" class="modal">
-
-
-
   <!-- Modal content -->
     <div class="modal-content">
     <span class="close">x</span>
@@ -81,7 +76,6 @@
 
 	<button class="Close" id="close">Close The Model</button>
   </div>
-
 
 	<script>
         //show modal
@@ -117,7 +111,7 @@
                                             }
 
 
-                                            $("#myModal2").show();
+                                            $("#resultsModal").show();
                                             for(i = 0; i < hits.length; i++){
                                                 $("#list").append("<li>"+hits[i].result.full_title+"</li>");
 
@@ -125,12 +119,11 @@
 
                                         }
                                         });
-
-
-
-
-
-
+                $("#closeResult").click(function(){
+                    $("#resultModal").empty();
+                    $("#resultsModal").hide();
+                }
+                )
 
 
                                 } //end of click handler
@@ -155,5 +148,51 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
+            <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+            <div id="player"></div>
+
+            <script>
+                // 2. This code loads the IFrame Player API code asynchronously.
+                var tag = document.createElement('script');
+
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                // 3. This function creates an <iframe> (and YouTube player)
+                //    after the API code downloads.
+                var player;
+                function onYouTubeIframeAPIReady() {
+                    player = new YT.Player('player', {
+                        height: '390',
+                        width: '640',
+                        videoId: 'M7lc1UVf-VE',
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange
+                        }
+                    });
+                }
+
+                // 4. The API will call this function when the video player is ready.
+                function onPlayerReady(event) {
+                    event.target.playVideo();
+                }
+
+                // 5. The API calls this function when the player's state changes.
+                //    The function indicates that when playing a video (state=1),
+                //    the player should play for six seconds and then stop.
+                var done = false;
+                function onPlayerStateChange(event) {
+                    if (event.data == YT.PlayerState.PLAYING && !done) {
+                        setTimeout(stopVideo, 6000);
+                        done = true;
+                    }
+                }
+                function stopVideo() {
+                    player.stopVideo();
+                }
+
+            </script>
     </body>
 </html>
