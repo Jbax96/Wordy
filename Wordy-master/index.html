@@ -119,13 +119,7 @@
                          hits = reply.response.hits;
                         console.log(hits);
 						
-						//if there are no results then display "No results found"
-						if(list.empty()){
-							alert("No results found");
-							resultsModal.hide();
-						}
-						
-                        var i;
+						var i;
 						
 						//loops through and adds hits to the list
                         for(i = 0; i < hits.length; i++){
@@ -138,7 +132,7 @@
                           $("#list").append("<li>"+hits[i].result.full_title+"</li>");
 
                         }
-
+					
                       }
                     });
 					
