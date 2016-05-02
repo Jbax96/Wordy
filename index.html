@@ -28,7 +28,7 @@
 
         <!-- Add your site or application content here -->
         <div class="jumbotron">
-        <h1>Welcome to Wordy </h1>
+        <h1><img src="Images/Title.png" alt="" style="width:275px;height:100px;"></h1>
         <p>This web application will finally allow you to<br>
         find that song that has been stuck in your head all<br>
         day and all you can remember is a few words from it</p>
@@ -50,12 +50,18 @@
                     </div>
                 </div>
 
+				<div id="testModal" class="modal">
+					<div class="modal-content">
+						
+					</div>
+				</div>
 <!-- The Modal -->
                 <div id="myModal" class="modal">
   <!-- Modal content -->
     <div class="modal-content">
     <span class="close">x</span>
 
+	<!-- Populates Select Genre modal -->
     <input type="radio" name="Genre" value="Rock"> Rock<br>
     <input type="radio" name="Genre" value="Pop"> Pop<br>
     <input type="radio" name="Genre" value="Rap"> Rap<br>
@@ -73,7 +79,7 @@
     <input type="radio" name="Genre" value="Grime"> Grime<br>
     <input type="radio" name="Genre" value="Unknown"> Unknown<br>
 
-	<button class="Close" id="close">Submit</button>
+	<button class="btn btn-success" id="close">Submit</button>
   </div>
 
 	<script>
@@ -128,6 +134,7 @@
                                 } //end of click handler
             )
 
+			
 		</script>
 
         </div>
