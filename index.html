@@ -28,7 +28,7 @@
 
         <!-- Add your site or application content here -->
         <div class="jumbotron">
-        <h1>Welcome to SongFinder </h1>
+        <h1>Welcome to Wordy </h1>
         <p>This web application will finally allow you to<br>
         find that song that has been stuck in your head all<br>
         day and all you can remember is a few words from it</p>
@@ -36,8 +36,7 @@
 			<div class="form-group">
 			<h2>Lyrics:<br></h2>
             <input class="form-control" type="text" name="Song Lyrics" id="lyrics" style="height:300px"><br>
-			<button class="btn btn-success" id=submitBtn">Submit</button>
-			<button class="btn btn-success" id="myBtn">Select Genre</button>
+			<button class="btn btn-success" id="myBtn">Submit</button>
 
         <!--<h2>Genre</h2>-->
 
@@ -74,7 +73,7 @@
     <input type="radio" name="Genre" value="Grime"> Grime<br>
     <input type="radio" name="Genre" value="Unknown"> Unknown<br>
 
-	<button class="Close" id="close">Close The Model</button>
+	<button class="Close" id="close">Submit</button>
   </div>
 
 	<script>
@@ -120,8 +119,8 @@
                                         }
                                         });
                 $("#closeResult").click(function(){
-                    $("#resultModal").empty();
-                    $("#resultsModal").hide();
+					$("#list").empty();
+					$("#resultsModal").hide();
                 }
                 )
 
